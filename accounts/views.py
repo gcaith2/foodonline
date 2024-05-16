@@ -12,6 +12,7 @@ from django.contrib.auth.tokens import default_token_generator
 
 #from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
+from vendor.models import Vendor
 
 # Restrict vendor to access customer page
 def check_role_vendor(user):
@@ -100,7 +101,7 @@ def registerVendor(request):
 
 #send verification emailp
             mail_subject='Activate your account'
-            email_template='accounts/emails/account_verfication_email.html'
+            email_template='accounts/emails/account_verification_email.html'
             send_verification_email(request, user, mail_subject, email_template)
 
             messages.success(request, 'Your account has been registered succesfully! Please wait for the approval')
@@ -180,6 +181,7 @@ def custDashboard(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
+    
     return render(request, 'accounts/vendorDashboard.html')
 
 def forgot_password(request):

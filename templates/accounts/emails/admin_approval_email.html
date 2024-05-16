@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Hi {{user.first_name}},
+
+{% if is_approved %}
+
+Congratulations! You have sucessfully registered as business.
+
+{% else %}
+
+We are Sorry to inform you that your registration as a business has been rejected. Please contact support@xxxxx.com
+
+{% endif %}
+
+{% endautoescape %}
