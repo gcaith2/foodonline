@@ -34,14 +34,18 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
-																					<img class="thumbnail" src="{{ profile.profile_picture.url }}" alt="Logo">
+																					{% if profile.profile_picture %}
+																					<img class="thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default-profile.png'%}" alt="Profile Picture">
+																					{% endif %}
 																				</div>
 																			</div>
 																		</li>
 																	</ul>
 																</div>
 																<div class="text-holder">
-																	<label>Profile Picute</label>
+																	<label>Profile Picu</label>
 																	<div class="upload-gallery">
 																		{{profile_form.profile_picture}}
 																	</div>
@@ -56,7 +60,13 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
+																					{% if profile.cover_photos %}
 																					<img class="thumbnail" src="{{ profile.cover_photos.url }}" alt="Cover Photo">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default-cover.png' %}" alt="Cover Photo">
+
+																					{% endif %}
+
 																				</div>
 																			</div>
 																		</li>
@@ -79,7 +89,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
-																					<img class="thumbnail" src="{{ vendor.vendor_licence.url }}" alt="Vendor Licence">
+																					{% if profile.cover_photos %}
+																					<img class="thumbnail" src="{{ profile.cover_photos.url }}" alt="Vendor Licence">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default-cover.png' %}" alt="Vendor Licence">
+																					{% endif %}
 																				</div>
 																			</div>
 																		</li>
