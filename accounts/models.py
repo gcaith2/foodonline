@@ -110,11 +110,22 @@ class UserProfile(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now=True)
 
-    #def full_address(self):
-       # return f'{self.address_line_1}, {self.address_line_2}'
-    
+    #def address(self):
+       #return f'{self.address}, {self.city}, {self.state}, {self.country}, {self.pin_code}'
+    # In your UserProfile model
 
-    def __str__(self):
+def address(self):
+  address_parts = [
+      self.address,
+      self.city if self.city else '',
+      self.state if self.state else '',
+      self.country if self.country else '',
+      self.pin_code if self.pin_code else ''
+  ]
+  return ', '.join(address_parts)
+
+
+def __str__(self):
         return self.user.email
     
 
