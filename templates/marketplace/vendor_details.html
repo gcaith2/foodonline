@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <!-- Main Section Start -->
 			<div class="main-section">
 				<div class="page-section restaurant-detail-image-section" style=" background: url({% if vendor.user_profile.cover_photos %} {{vendor.user_profile.cover_photos.url}} {% else %}{% static 'images/default-cover.png' %} {% endif %}) no-repeat scroll 0 0 / cover;">
@@ -113,15 +114,20 @@
 															<div class="price-holder">
 																<span class="price">INR {{food.price}}</span>
 
-																<a href="#" class="decrease_cart" style="margin-right:28PX"><i class="icon-minus text-color"></i></a>
-																<label id="qty">0</label>
-																<a href="#" class="add_to_cart"><i class="icon-plus4 text-color"></i></a>
+																<a href="#" class="decrease_cart" style="margin-right: 28px; color:black;"><i class="fa fa-minus" style="font-size:12px" ></i></a>
+																<label id="qty-{{food.id}}">0</label>
+																<a href="#" class="add_to_cart" data-id ="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}" style="color:black"><i class="fa fa-plus" style="font-size:12px"></i></a>
 															</div>
 														</li>
 														{% endfor %}
 													</ul>	
                                                     {% endfor %}
 												</div>
+												{% for item in cart_items %}
+												<span id="qty-{{item.fooditem.id}}" class="item_qty" data-qty="{{item.quantity}}">{{item.quantity}}</span>
+												
+
+												{% endfor%}
 											</div>
 										</div>
 										
@@ -134,5 +140,40 @@
 				</div>
 			</div>
 			<!-- Main Section End -->
+		<script>
+		
+
+			$(document).ready(function(){
+				$('.add_to_cart').on('click', function(e){
+					e.preventDefault();
+					
+					food_id=$(this).attr('data-id');
+					url=$(this).attr('data-url');
+					data={
+						food_id:food_id,
+					}
+
+					$.ajax({
+						
+						type: 'GET',
+						url: url,
+						data : data,
+						success: function(response){
+							console.log(response);
+						}
+					})
+				})
+
+				// place the cart item quantity
+				$('.item_qty').each(function(){
+					var the_id= $(this).attr('id');
+					var qty= $(this).attr('data-qty');x
+					
+					$('#'+the_id).html(qty);
+				});   
+
+			});
+
+		</script>
 
 {% endblock %}
